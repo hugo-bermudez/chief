@@ -7,8 +7,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
-  title: "Chief",
-  description: "AI-powered assistant",
+  title: "Chief — The Finance OS",
+  description: "Your finance operating system. Capital, banking, performance and analytics in one place.",
 };
 
 export default function RootLayout({
