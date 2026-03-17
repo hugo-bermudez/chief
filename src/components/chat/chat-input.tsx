@@ -35,7 +35,8 @@ export function ChatInput({
   return (
     <div className="bg-[#EBEBEB] px-6 pb-6 pt-3">
       <div className="mx-auto max-w-3xl">
-        <div className="rounded-[20px] bg-white shadow-[0_2px_8px_rgba(0,0,0,0.04),0_8px_32px_rgba(0,0,0,0.06)]">
+        <div className="glow-border">
+        <div className="relative rounded-[20px] bg-white shadow-[0_2px_8px_rgba(0,0,0,0.04),0_8px_32px_rgba(0,0,0,0.06)]">
           {/* Textarea */}
           <div className="px-5 pt-4 pb-2">
             <textarea
@@ -93,6 +94,7 @@ export function ChatInput({
               )}
             </div>
           </div>
+        </div>
         </div>
       </div>
     </div>

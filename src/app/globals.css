@@ -127,6 +127,73 @@
     transform: scale(0.97);
 }
 
+/* ── Elegant glow border animation ── */
+@property --glow-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+@keyframes glow-spin {
+    to { --glow-angle: 360deg; }
+}
+
+.glow-border {
+    position: relative;
+    border-radius: 20px;
+}
+
+.glow-border::before,
+.glow-border::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: 21px;
+    background: conic-gradient(
+        from var(--glow-angle),
+        transparent 0%,
+        rgba(0, 0, 0, 0.06) 10%,
+        transparent 20%,
+        transparent 45%,
+        rgba(120, 120, 140, 0.12) 55%,
+        transparent 65%,
+        transparent 80%,
+        rgba(0, 0, 0, 0.04) 90%,
+        transparent 100%
+    );
+    z-index: -1;
+    animation: glow-spin 6s linear infinite;
+}
+
+.glow-border::after {
+    inset: -2px;
+    border-radius: 22px;
+    filter: blur(8px);
+    opacity: 0.5;
+}
+
+/* Focused state — warmer, more visible glow */
+.glow-border:focus-within::before,
+.glow-border:focus-within::after {
+    background: conic-gradient(
+        from var(--glow-angle),
+        transparent 0%,
+        rgba(90, 130, 250, 0.15) 10%,
+        transparent 20%,
+        transparent 40%,
+        rgba(160, 140, 200, 0.12) 50%,
+        transparent 60%,
+        transparent 75%,
+        rgba(200, 160, 120, 0.1) 85%,
+        transparent 100%
+    );
+}
+
+.glow-border:focus-within::after {
+    filter: blur(12px);
+    opacity: 0.7;
+}
+
 /* ── Toolbar button hover ── */
 .toolbar-btn {
     transition: background-color 160ms ease-out, border-color 160ms ease-out, color 160ms ease-out;

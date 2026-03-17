@@ -52,7 +52,8 @@ export function HeroInput({ input, setInput, onSubmit }: HeroInputProps) {
   return (
     <div className="relative z-10 w-full max-w-[680px] px-4">
       {/* Main input card */}
-      <div className="rounded-[20px] bg-white shadow-[0_2px_8px_rgba(0,0,0,0.04),0_8px_32px_rgba(0,0,0,0.06)]">
+      <div className="glow-border">
+      <div className="relative rounded-[20px] bg-white shadow-[0_2px_8px_rgba(0,0,0,0.04),0_8px_32px_rgba(0,0,0,0.06)]">
         {/* Textarea */}
         <div className="px-5 pt-5 pb-2">
           <textarea
@@ -126,6 +127,7 @@ export function HeroInput({ input, setInput, onSubmit }: HeroInputProps) {
             </button>
           </div>
         </div>
+      </div>
       </div>
 
       {/* Suggestion pills */}
