@@ -6,9 +6,9 @@ import type { Message } from "@/hooks/use-chat";
 function TypingIndicator() {
   return (
     <span className="inline-flex items-center gap-1" aria-label="Typing">
-      <span className="size-1.5 animate-bounce rounded-full bg-white/20 [animation-delay:0ms]" />
-      <span className="size-1.5 animate-bounce rounded-full bg-white/20 [animation-delay:150ms]" />
-      <span className="size-1.5 animate-bounce rounded-full bg-white/20 [animation-delay:300ms]" />
+      <span className="size-1.5 animate-bounce rounded-full bg-black/15 [animation-delay:0ms]" />
+      <span className="size-1.5 animate-bounce rounded-full bg-black/15 [animation-delay:150ms]" />
+      <span className="size-1.5 animate-bounce rounded-full bg-black/15 [animation-delay:300ms]" />
     </span>
   );
 }
@@ -26,10 +26,10 @@ export function MessageBubble({ message }: { message: Message }) {
     >
       <div
         className={cn(
-          "max-w-[80%] rounded-2xl px-4 py-3 text-sm leading-relaxed",
+          "max-w-[80%] rounded-2xl px-4 py-3 text-[14px] leading-relaxed",
           isUser
-            ? "rounded-br-sm bg-gradient-to-br from-[#5486FA] to-[#3B6BF5] text-white"
-            : "rounded-bl-sm border border-white/[0.06] bg-[#141419] text-[#C7C7CC]"
+            ? "rounded-br-md bg-[#2C2C2C] text-white"
+            : "rounded-bl-md bg-white text-[#333333] shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
         )}
       >
         {isEmpty ? (

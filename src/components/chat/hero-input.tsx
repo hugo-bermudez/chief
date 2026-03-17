@@ -1,8 +1,17 @@
 "use client";
 
 import { useRef, useCallback } from "react";
-import { ArrowUp, Plus, TrendingUp, Landmark, BarChart3, CreditCard } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import {
+  ArrowUp,
+  Plus,
+  Zap,
+  ChevronDown,
+  Mic,
+  TrendingUp,
+  Landmark,
+  BarChart3,
+  CreditCard,
+} from "lucide-react";
 
 interface HeroInputProps {
   input: string;
@@ -33,63 +42,88 @@ export function HeroInput({ input, setInput, onSubmit }: HeroInputProps) {
   const handleSuggestion = useCallback(
     (query: string) => {
       setInput(query);
-      // Focus then submit on next tick so the input updates
-      setTimeout(() => {
-        textareaRef.current?.focus();
-      }, 0);
+      setTimeout(() => textareaRef.current?.focus(), 0);
     },
     [setInput]
   );
 
+  const hasInput = input.trim().length > 0;
+
   return (
-    <div className="relative z-10 w-full max-w-[720px] px-4">
-      {/* Glowing input container */}
-      <div className="glow-border">
-        <div className="relative flex flex-col rounded-2xl bg-[#111116] ring-1 ring-white/[0.06]">
-          {/* Text input area */}
-          <div className="px-5 pt-5 pb-3">
-            <textarea
-              ref={textareaRef}
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder="Ask anything..."
-              rows={2}
-              className="w-full resize-none bg-transparent text-[15px] leading-relaxed text-white placeholder-[#555566] outline-none"
-              autoFocus
-            />
+    <div className="relative z-10 w-full max-w-[680px] px-4">
+      {/* Main input card */}
+      <div className="rounded-[20px] bg-white shadow-[0_2px_8px_rgba(0,0,0,0.04),0_8px_32px_rgba(0,0,0,0.06)]">
+        {/* Textarea */}
+        <div className="px-5 pt-5 pb-2">
+          <textarea
+            ref={textareaRef}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="Ask anything about your finances..."
+            rows={2}
+            className="w-full resize-none bg-transparent text-[15px] leading-relaxed text-[#1A1A1A] placeholder-[#BBBBBB] outline-none"
+            autoFocus
+          />
+        </div>
+
+        {/* Toolbar */}
+        <div className="flex items-center justify-between px-3.5 pb-3.5">
+          <div className="flex items-center gap-1.5">
+            {/* Plus / attach */}
+            <button
+              type="button"
+              className="toolbar-btn flex size-9 items-center justify-center rounded-xl border border-black/[0.06] text-[#999999]"
+              aria-label="Attach file"
+            >
+              <Plus className="size-4" strokeWidth={2} />
+            </button>
+
+            {/* Inspiration / mode button */}
+            <button type="button" className="toolbar-btn flex h-9 items-center gap-1.5 rounded-xl border border-black/[0.06] px-3 text-[13px] font-medium text-[#999999]">
+              <Zap className="size-3.5 text-[#16A34A]" strokeWidth={2} />
+              <span className="text-[#555555]">Finance</span>
+              <ChevronDown className="size-3 text-[#BBBBBB]" />
+            </button>
           </div>
 
-          {/* Bottom toolbar */}
-          <div className="flex items-center justify-between px-3 pb-3">
-            <div className="flex items-center gap-1.5">
-              <button
-                className="flex size-8 items-center justify-center rounded-lg border border-white/[0.08] bg-white/[0.03] text-[#6B6B80] transition-colors hover:bg-white/[0.06] hover:text-white/70"
-                aria-label="Attach file"
-              >
-                <Plus className="size-4" />
-              </button>
-              <button className="flex h-8 items-center gap-1.5 rounded-lg border border-white/[0.08] bg-white/[0.03] px-3 text-xs font-medium text-[#6B6B80] transition-colors hover:bg-white/[0.06] hover:text-white/70">
-                <TrendingUp className="size-3.5" />
-                Finance
-              </button>
-              <button className="flex h-8 items-center gap-1.5 rounded-lg border border-white/[0.08] bg-white/[0.03] px-3 text-xs font-medium text-[#6B6B80] transition-colors hover:bg-white/[0.06] hover:text-white/70">
-                <BarChart3 className="size-3.5" />
-                Analytics
-              </button>
-            </div>
+          <div className="flex items-center gap-2">
+            {/* Model selector */}
+            <button type="button" className="flex h-9 items-center gap-1 px-2 text-[13px] font-medium text-[#777777] transition-colors hover:text-[#333333]">
+              Chief 1.0
+              <ChevronDown className="size-3 text-[#BBBBBB]" />
+            </button>
 
-            <div className="flex items-center gap-1.5">
-              <Button
-                onClick={onSubmit}
-                disabled={!input.trim()}
-                size="icon"
-                className="size-8 rounded-full bg-gradient-to-br from-[#7B61FF] via-[#E056A0] to-[#D4622B] text-white shadow-none hover:opacity-90 disabled:opacity-30"
-                aria-label="Send message"
+            {/* Mic or cancel */}
+            {hasInput ? (
+              <button
+                type="button"
+                onClick={() => setInput("")}
+                className="flex size-9 items-center justify-center text-[#BBBBBB] transition-colors hover:text-[#666666]"
+                aria-label="Clear input"
               >
-                <ArrowUp className="size-4" />
-              </Button>
-            </div>
+                <span className="text-lg leading-none">&times;</span>
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="flex size-9 items-center justify-center text-[#BBBBBB] transition-colors hover:text-[#666666]"
+                aria-label="Voice input"
+              >
+                <Mic className="size-4" strokeWidth={2} />
+              </button>
+            )}
+
+            {/* Send */}
+            <button
+              type="button"
+              onClick={onSubmit}
+              disabled={!hasInput}
+              className="flex size-10 items-center justify-center rounded-xl bg-[#2C2C2C] text-white shadow-[0_1px_2px_rgba(0,0,0,0.1)] transition-all hover:bg-[#1A1A1A] active:scale-95 disabled:bg-[#E5E5E5] disabled:text-[#BBBBBB] disabled:shadow-none"
+              aria-label="Send message"
+            >
+              <ArrowUp className="size-[18px]" strokeWidth={2.5} />
+            </button>
           </div>
         </div>
       </div>
@@ -100,7 +134,7 @@ export function HeroInput({ input, setInput, onSubmit }: HeroInputProps) {
           <button
             key={s.label}
             onClick={() => handleSuggestion(s.query)}
-            className="suggestion-pill flex h-8 items-center gap-2 rounded-full border border-white/[0.06] bg-white/[0.02] px-4 text-xs font-medium text-[#6B6B80]"
+            className="suggestion-pill flex h-8 items-center gap-2 rounded-full border border-black/[0.06] bg-white/60 px-4 text-xs font-medium text-[#888888]"
           >
             <s.icon className="size-3.5" />
             {s.label}

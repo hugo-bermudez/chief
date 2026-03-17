@@ -4,7 +4,6 @@ import { useChat } from "@/hooks/use-chat";
 import { MessageList } from "@/components/chat/message-list";
 import { ChatInput } from "@/components/chat/chat-input";
 import { HeroInput } from "@/components/chat/hero-input";
-import { MatrixBackground } from "@/components/chat/matrix-background";
 
 export default function Home() {
   const { messages, input, setInput, isLoading, handleSubmit, stop } =
@@ -14,15 +13,13 @@ export default function Home() {
 
   if (!hasMessages) {
     return (
-      <div className="relative flex h-dvh flex-col items-center justify-center overflow-hidden">
-        <MatrixBackground />
-
+      <div className="flex h-dvh flex-col items-center justify-center">
         {/* Branding */}
-        <div className="relative z-10 mb-12 text-center">
-          <h1 className="text-4xl font-medium tracking-tight text-white">
+        <div className="mb-10 text-center">
+          <h1 className="text-3xl font-semibold tracking-tight text-[#1A1A1A]">
             Chief
           </h1>
-          <p className="mt-2 text-sm text-[#6B6B80]">
+          <p className="mt-1.5 text-sm text-[#999999]">
             The finance operating system
           </p>
         </div>
@@ -34,9 +31,9 @@ export default function Home() {
 
   return (
     <div className="flex h-dvh flex-col">
-      <header className="flex shrink-0 items-center border-b border-white/[0.06] px-6 py-3">
-        <h1 className="text-sm font-medium text-white/80">Chief</h1>
-        <span className="ml-2 text-xs text-[#6B6B80]">Finance OS</span>
+      <header className="flex shrink-0 items-center border-b border-black/[0.06] bg-white/60 px-6 py-3 backdrop-blur-sm">
+        <h1 className="text-sm font-semibold text-[#1A1A1A]">Chief</h1>
+        <span className="ml-2 text-xs text-[#999999]">Finance OS</span>
       </header>
 
       <MessageList messages={messages} />

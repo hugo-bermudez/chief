@@ -1,8 +1,7 @@
 "use client";
 
 import { useRef, useCallback } from "react";
-import { Button } from "@/components/ui/button";
-import { ArrowUp, Square } from "lucide-react";
+import { ArrowUp, Square, Plus, Zap, ChevronDown } from "lucide-react";
 
 interface ChatInputProps {
   input: string;
@@ -31,42 +30,70 @@ export function ChatInput({
     [onSubmit]
   );
 
+  const hasInput = input.trim().length > 0;
+
   return (
-    <div className="border-t border-white/[0.06] bg-[#0A0A0F] px-6 pb-6 pt-4">
-      <div className="mx-auto flex max-w-3xl items-end gap-3">
-        <div className="flex-1 rounded-xl border border-white/[0.08] bg-[#111116] px-4 py-3">
-          <textarea
-            ref={textareaRef}
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder="Ask anything..."
-            rows={1}
-            className="w-full resize-none bg-transparent text-sm leading-relaxed text-white placeholder-[#555566] outline-none"
-            autoFocus
-          />
+    <div className="bg-[#EBEBEB] px-6 pb-6 pt-3">
+      <div className="mx-auto max-w-3xl">
+        <div className="rounded-[20px] bg-white shadow-[0_2px_8px_rgba(0,0,0,0.04),0_8px_32px_rgba(0,0,0,0.06)]">
+          {/* Textarea */}
+          <div className="px-5 pt-4 pb-2">
+            <textarea
+              ref={textareaRef}
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="Ask anything..."
+              rows={1}
+              className="w-full resize-none bg-transparent text-[15px] leading-relaxed text-[#1A1A1A] placeholder-[#BBBBBB] outline-none"
+              autoFocus
+            />
+          </div>
+
+          {/* Toolbar */}
+          <div className="flex items-center justify-between px-3.5 pb-3.5">
+            <div className="flex items-center gap-1.5">
+              <button
+                type="button"
+                className="toolbar-btn flex size-8 items-center justify-center rounded-lg border border-black/[0.06] text-[#999999]"
+                aria-label="Attach file"
+              >
+                <Plus className="size-4" strokeWidth={2} />
+              </button>
+              <button
+                type="button"
+                className="toolbar-btn flex h-8 items-center gap-1.5 rounded-lg border border-black/[0.06] px-2.5 text-[13px] font-medium text-[#999999]"
+              >
+                <Zap className="size-3.5 text-[#16A34A]" strokeWidth={2} />
+                <span className="text-[#555555]">Finance</span>
+                <ChevronDown className="size-3 text-[#BBBBBB]" />
+              </button>
+            </div>
+
+            <div className="flex items-center gap-1.5">
+              {isLoading ? (
+                <button
+                  type="button"
+                  onClick={onStop}
+                  className="flex size-9 items-center justify-center rounded-xl border border-black/[0.06] text-[#999999] transition-colors hover:bg-black/[0.04] hover:text-[#333333]"
+                  aria-label="Stop generating"
+                >
+                  <Square className="size-4" />
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={onSubmit}
+                  disabled={!hasInput}
+                  className="flex size-9 items-center justify-center rounded-xl bg-[#2C2C2C] text-white shadow-[0_1px_2px_rgba(0,0,0,0.1)] transition-all hover:bg-[#1A1A1A] active:scale-95 disabled:bg-[#E5E5E5] disabled:text-[#BBBBBB] disabled:shadow-none"
+                  aria-label="Send message"
+                >
+                  <ArrowUp className="size-[18px]" strokeWidth={2.5} />
+                </button>
+              )}
+            </div>
+          </div>
         </div>
-        {isLoading ? (
-          <Button
-            onClick={onStop}
-            size="icon"
-            variant="outline"
-            aria-label="Stop generating"
-            className="size-9 shrink-0 rounded-xl border-white/[0.08] bg-[#111116] text-[#6B6B80] hover:bg-white/[0.06] hover:text-white/70"
-          >
-            <Square className="size-4" />
-          </Button>
-        ) : (
-          <Button
-            onClick={onSubmit}
-            size="icon"
-            disabled={!input.trim()}
-            aria-label="Send message"
-            className="size-9 shrink-0 rounded-xl bg-gradient-to-br from-[#7B61FF] via-[#E056A0] to-[#D4622B] text-white shadow-none hover:opacity-90 disabled:opacity-30"
-          >
-            <ArrowUp className="size-4" />
-          </Button>
-        )}
       </div>
     </div>
   );
