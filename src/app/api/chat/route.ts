@@ -1,15 +1,19 @@
 import { NextRequest } from "next/server";
 import OpenAI from "openai";
 
-const client = new OpenAI();
+function getClient() {
+  return new OpenAI();
+}
+
+const SYSTEM_PROMPT = `You are Chief, a helpful AI assistant. You are concise, clear and friendly. You provide accurate information and help users accomplish their goals efficiently.`;
 
 export async function POST(req: NextRequest) {
   try {
-    const { messages, systemPrompt } = await req.json();
+    const { messages } = await req.json();
 
-    const response = await client.chat.completions.create({
-      model: "gpt-5.2",
-      messages: [{ role: "system", content: systemPrompt }, ...messages],
+    const response = await getClient().chat.completions.create({
+      model: "gpt-4o",
+      messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
       stream: true,
     });
 
