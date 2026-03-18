@@ -1,14 +1,10 @@
 import type { Metadata } from "next";
+import { ThemeProvider } from "@/hooks/use-system-theme";
 import "./globals.css";
-import { Inter } from "next/font/google";
-import { cn } from "@/lib/utils";
-import { TooltipProvider } from "@/components/ui/tooltip";
-
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
-  title: "Chief — The Finance OS",
-  description: "Your finance operating system. Capital, banking, performance and analytics in one place.",
+  title: "shadcn/ui Chat",
+  description: "Generative UI Chat with shadcn/ui components",
 };
 
 export default function RootLayout({
@@ -17,9 +13,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("font-sans", inter.variable)}>
+    <html lang="en">
       <body>
-        <TooltipProvider>{children}</TooltipProvider>
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );
